@@ -20,6 +20,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "28d185e3-9284-4f91-963b-9f0523997402"
+      }
+    },
+    "owner": "thomasgal",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/28d185e3-9284-4f91-963b-9f0523997402"
     }
   }
 }

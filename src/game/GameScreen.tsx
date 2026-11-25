@@ -161,7 +161,9 @@ export default function GameScreen({ chapter, adventure, springLegs, hasNext, on
   if (!gameRef.current) gameRef.current = new Game(adventure, { springLegs });
   const game = gameRef.current;
   // Debug handle for playtesting in the browser console (dev web builds only)
-  if (__DEV__ && Platform.OS === 'web') (globalThis as { __miko?: Game }).__miko = game;
+  useEffect(() => {
+    if (__DEV__ && Platform.OS === 'web') (globalThis as { __miko?: Game }).__miko = game;
+  }, [game]);
   const [, force] = useReducer((n: number) => n + 1, 0);
   const [showForces, setShowForces] = useState(false);
   const reported = useRef(false);
@@ -193,7 +195,10 @@ export default function GameScreen({ chapter, adventure, springLegs, hasNext, on
         if (!e.repeat) game.pressJump();
       } else if (k === 'b' || k === 'tab') game.toggleBuild();
       else if (k === 'f') setShowForces((v) => !v);
-      else if (k === 'r') (game.building ? game.removeSelected() : game.respawn());
+      else if (k === 'r') {
+        if (game.building) game.removeSelected();
+        else game.respawn();
+      }
       else if (k === 'e') game.rotateSelected(15);
       else return;
       e.preventDefault();
